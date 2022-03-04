@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <conio.h>
 #include <time.h>
-#include "random.h"
 #include <pthread.h>
 
 #define N 20

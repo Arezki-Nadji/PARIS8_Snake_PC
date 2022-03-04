@@ -10,3 +10,12 @@
 
 1646242772 c:\users\arezk\desktop\etude\m1 paris 8\s1\progracon\snake\random.h
 
+1646398128 source:c:\users\arezk\desktop\etude\m1 paris 8\s1\progracon\snakee\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<conio.h>
+	<time.h>
+	"random.h"
+	<pthread.h>
+
