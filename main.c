@@ -114,6 +114,69 @@ void DrawTheField(snake *SnakeList, int SnakeCount)
         }
     }
 }
+void DrawTheFieldBlocking(snake *SnakeList, int SnakeCount)
+{
+    printf("Current Score: \n");
+        for(int i = 0; i < SnakeCount; i++)
+    {
+     snake *Snake = SnakeList + i;
+
+        printf("Snake %d : %d ",i+1, Snake->Score);
+        if (Snake->Game == 0)
+        {
+            printf(" (Alive) ");
+        }
+        else printf(" (Dead) ");
+        printf("\n");
+    }
+
+    for(i =0;i<=M+1;i++)
+    {
+        if(i==0){
+            printf("%c",201);
+
+        }
+        else if(i==M+1)
+        {
+            printf("%c",187);
+        }else
+        {
+            printf("%c",205);
+        }
+    }
+    printf("\n");
+    for(i=0;i<N;i++)
+    {
+        printf("%c",186);
+        for(j=0;j<M;j++)
+        {
+            if(Field[i][j]==0) printf(" ");
+            if(Field[i][j]>0 && Field[i][j] != SnakeList->Head) printf("%c",178) ;
+            if(Field[i][j]==SnakeList->Head) printf("%c",178);
+
+            if(Field[i][j]==-1) printf("%c",15);
+            if(Field[i][j]==-2) printf("%c",229);
+            if(Field[i][j]==-3) printf("%c",42);
+            if(Field[i][j]==-4) printf("%c",248);
+            if(j==M-1) printf("%c\n",186);
+
+        }
+    }
+        for(i =0;i<=M+1;i++)
+    {
+        if(i==0){
+            printf("%c",200);
+
+        }else if(i==M+1)
+        {
+            printf("%c",188);
+        }
+        else
+        {
+            printf("%c",205);
+        }
+    }
+}
 void ResetScreenPosition()
 {
     HANDLE hOut;
@@ -406,22 +469,21 @@ void UpdateSnake(snake *Snake)
    F++;
 }
 
-void gameStartForSpek(snake *SnakeList, int SnakeCount)
+void gameStartForSpek(snake *SnakeList, int SnakeCount,int Map)
 {
 
     frame = rand() % 5000;
     int direction=0;
-
+    int Maped = Map;
 
 
     GameCount = SnakeCount;
     Random();
     while(1)
     {
-        // pthread_mutex_lock(&Mutex);
-        DrawTheField(SnakeList, SnakeCount);
+        if(Maped == 1) DrawTheField(SnakeList, SnakeCount);
+        if(Maped==2) DrawTheFieldBlocking(SnakeList,SnakeCount);
         ResetScreenPosition();
-        //Random();
 
        pthread_t *thread_group = malloc(sizeof(pthread_t)*SnakeCount);
          for(int i = 0; i < SnakeCount; i++)
@@ -438,7 +500,6 @@ void gameStartForSpek(snake *SnakeList, int SnakeCount)
             }
 
         if (GameCount == 0)break;
-       // pthread_mutex_unlock(&Mutex);
         Sleep(speed);
     }
 
@@ -449,13 +510,23 @@ void main(int argc, char **argv)
 {
 
     Mutex = PTHREAD_MUTEX_INITIALIZER;
-    int SnakeCount = 4;
+    int SnakeCount ;
+    int Map;
+    printf("Number of snake: ");
+    scanf("%d", &SnakeCount);
+    printf("Choose Map: ");
+    scanf("%d", &Map);
+    if(Map >4){
+    printf("Map Does not exist: ");
+    scanf("%d", &Map);
+    }
+    system("cls");
     snake *SnakeList = (snake *)calloc(1, sizeof(snake) * SnakeCount);
     for(int i = 0; i < SnakeCount; i++)
     {
         snakeIntialization(SnakeList + i, i);
     }
-    gameStartForSpek(SnakeList, SnakeCount);
+    gameStartForSpek(SnakeList, SnakeCount,Map);
 
         printf("\a");
 
