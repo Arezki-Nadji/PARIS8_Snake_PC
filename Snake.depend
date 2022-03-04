@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1646397673 source:c:\users\arezk\desktop\etude\m1 paris 8\s1\progracon\snake\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<conio.h>
+	<time.h>
+	"random.h"
+	<pthread.h>
+
+1646242772 c:\users\arezk\desktop\etude\m1 paris 8\s1\progracon\snake\random.h
+
